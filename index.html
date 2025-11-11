@@ -1,153 +1,219 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Camera — 让美变得更简单</title>
-  <meta name="description" content="AI Camera — 一款面向年轻女性的轻便高质相机，融合 AI 智能与美学设计，支持一键分享与即时色彩优化。" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
   <style>
-    :root{--bg:#fff;--pink:#F7E6EB;--accent:#F4BDC7;--muted:#7a6b6b;--maxw:1100px}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:'Noto Sans SC',sans-serif;color:#111;background:linear-gradient(180deg,var(--bg),#fff)}
-    a{color:inherit}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:28px}
-    nav{display:flex;justify-content:space-between;align-items:center;padding:12px 0}
-    .brand{font-family:'Playfair Display',serif;font-size:20px}
-    .nav-links{display:flex;gap:16px;color:var(--muted)}
+    /* ===== 全局样式 ===== */
+    body {
+      font-family: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+      margin: 0;
+      background: #fff;
+      color: #222;
+      overflow-x: hidden;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 8%;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0;
+    }
+    nav a {
+      margin-left: 24px;
+      text-decoration: none;
+      color: #333;
+      font-size: 15px;
+    }
+    nav a:hover {
+      color: #ff6fa5;
+    }
 
-    /* HERO */
-    .hero{display:grid;grid-template-columns:1fr 440px;gap:40px;align-items:center;padding:48px 0}
-    .hero-left h1{font-family:'Playfair Display',serif;font-size:44px;margin:0;color:#222}
-    .hero-left p.lead{color:var(--muted);font-size:18px;margin:12px 0 20px}
-    .btn{padding:12px 18px;border-radius:12px;border:none;cursor:pointer;font-weight:700}
-    .btn-primary{background:linear-gradient(90deg,var(--accent),#F2A8B6);color:#fff}
-    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.06)}
+    /* ===== Hero 区 ===== */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 60px 8%;
+    }
+    .hero-text {
+      flex: 1;
+      min-width: 300px;
+      max-width: 500px;
+      z-index: 2;
+    }
+    .hero-text h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-text p {
+      font-size: 17px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      color: #555;
+    }
+    .hero-buttons a {
+      display: inline-block;
+      padding: 12px 26px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      margin-right: 12px;
+      transition: all 0.3s ease;
+    }
+    .btn.primary {
+      background: #ff6fa5;
+      color: #fff;
+    }
+    .btn.primary:hover {
+      background: #ff528d;
+    }
+    .btn.secondary {
+      border: 1px solid #ff6fa5;
+      color: #ff6fa5;
+    }
+    .btn.secondary:hover {
+      background: #ff6fa5;
+      color: #fff;
+    }
+    .hero-img {
+      flex: 1;
+      min-width: 300px;
+      height: 400px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
 
-    .hero-card{background:var(--bg);border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(30,10,10,0.05)}
-    .hero-img{height:520px;background-size:cover;background-position:center}
-    .meta{padding:14px 16px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+    /* ===== 动画部分 ===== */
+    .fade-in {
+      animation: fadeIn 1s ease-out forwards;
+      opacity: 0;
+    }
+    .slide-up {
+      animation: slideUp 1.2s ease-out forwards;
+      opacity: 0;
+    }
+    .zoom-in {
+      animation: zoomIn 1.4s ease-out forwards;
+      opacity: 0;
+    }
+    .fade-delay-1 { animation-delay: 0.3s; }
+    .fade-delay-2 { animation-delay: 0.6s; }
+    .fade-delay-3 { animation-delay: 0.9s; }
 
-    /* sections */
-    .section{padding:56px 0}
-    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
-    .features{display:flex;gap:16px;flex-wrap:wrap}
-    .card{background:#fff;padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(20,10,10,0.03);min-width:200px}
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(1.05); }
+      to { opacity: 1; transform: scale(1); }
+    }
 
-    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-    .gallery img{width:100%;height:200px;object-fit:cover;border-radius:10px}
+    /* ===== 滚动动画（Section出现时淡入） ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-    footer{padding:36px 0;color:var(--muted);font-size:14px}
-
-    @media (max-width:980px){.hero{grid-template-columns:1fr}.hero-img{height:420px}.gallery{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:520px){.wrap{padding:16px}.hero-left h1{font-size:28px}.hero-img{height:300px}.gallery img{height:140px}}
+    /* ===== 响应式 ===== */
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding: 40px 6%;
+      }
+      .hero-text {
+        max-width: 100%;
+      }
+      .hero-img {
+        width: 100%;
+        height: 280px;
+        margin-bottom: 30px;
+      }
+      header {
+        flex-direction: column;
+      }
+      nav {
+        margin-top: 10px;
+      }
+    }
   </style>
 </head>
+
 <body>
-  <div class="wrap">
+  <header>
+    <h1>AI Camera</h1>
     <nav>
-      <div class="brand">AI Camera</div>
-      <div class="nav-links">
-        <div>About</div>
-        <div>Features</div>
-        <div>Gallery</div>
-        <div style="padding:6px 12px;border-radius:10px;background:var(--pink)">预订</div>
-      </div>
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#order" class="btn secondary" style="padding:6px 16px;">预订</a>
     </nav>
+  </header>
 
-    <header class="hero">
-      <div class="hero-left">
-        <div style="display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(244,189,199,0.12);color:#F07FA2;font-weight:700;font-size:13px">新品 · AI Camera</div>
-        <h1>AI Camera，让美变得更简单。</h1>
-        <p class="lead">一台为年轻女性设计的轻便 M4/3 相机，结合 AI 智能色彩优化与一键分享，记录每一个闪光的瞬间。</p>
-        <div style="display:flex;gap:12px;align-items:center">
-          <button class="btn btn-primary" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">了解更多</button>
-          <button class="btn btn-ghost" onclick="document.getElementById('preorder').scrollIntoView({behavior:'smooth'})">立即预订</button>
-        </div>
-        <p style="color:var(--muted);font-size:13px;margin-top:12px">首批预计发货：2026 Q1 • 限量早鸟</p>
+  <section class="hero fade-in">
+    <div class="hero-text slide-up">
+      <h1 class="fade-delay-1">AI Camera, 让美变得更简单。</h1>
+      <p class="fade-delay-2">一台为年轻女性设计的轻便 M4/3 相机，结合 AI 智能色彩优化与一键分享，记录每一个闪光的瞬间。</p>
+      <div class="hero-buttons fade-delay-3">
+        <a href="#features" class="btn primary">了解更多</a>
+        <a href="#order" class="btn secondary">立即预订</a>
       </div>
+      <p style="margin-top:20px;color:#777;font-size:14px;">首批预计发货：2026 Q1・限量早鸟</p>
+    </div>
+    <div class="hero-img zoom-in" style="background-image:url('./assets/cover.jpg');"></div>
+  </section>
 
-      <div class="hero-card" aria-hidden="true">
-        <div class="hero-img" style="background-image:url('https://i.pinimg.com/1200x/12/d0/61/12d06120663c7090ae12fa6e0eb1a2fd.jpg');"></div>
-        <div class="meta"><div>AI Camera • Aurora</div><div>Photo • Concept</div></div>
-      </div>
-    </header>
+  <section id="features" class="reveal" style="padding:80px 8%;background:#fafafa;">
+    <h2>核心特性</h2>
+    <p>AI 智能美化、自动曝光优化、一键分享、轻便可换镜设计。</p>
+  </section>
 
-    <section class="section" id="about">
-      <div class="grid-2">
-        <div>
-          <h3 style="font-family:'Playfair Display',serif;margin-top:0">重新定义记录之美</h3>
-          <p style="color:var(--muted)">AI Camera 不是为了替代手机，也不是复杂的专业器材。它在影像质量与社交便捷之间找到了平衡：选择 M4/3 传感器带来真实色彩与浅景深，同时搭载智能传输与快速预设，让你拍完即可分享到社交平台。</p>
-          <p style="color:var(--muted);margin-top:12px">轻巧机身 • AI 色彩优化 • 一键分享 • 精准肤色还原</p>
-        </div>
-        <div>
-          <div style="background:linear-gradient(180deg,rgba(244,189,199,0.12),rgba(244,189,199,0.04));padding:16px;border-radius:12px">
-            <h4 style="margin:0 0 8px">设计理念</h4>
-            <p style="color:var(--muted);margin:0">每一台 AI Camera 都从女性视角出发：握感、配色、界面交互与直观的分享流程，都是为了让拍摄变成一种日常的愉悦。</p>
-          </div>
-        </div>
-      </div>
-    </section>
+  <section id="gallery" class="reveal" style="padding:80px 8%;">
+    <h2>拍摄样张</h2>
+    <p>每一张都是光影的艺术。</p>
+  </section>
 
-    <section class="section" id="features">
-      <h3 style="font-family:'Playfair Display',serif;margin-bottom:8px">功能亮点</h3>
-      <div class="features">
-        <div class="card">
-          <h4>AI 色彩识别</h4>
-          <p style="color:var(--muted)">基于场景识别的自动色彩校正，保留真实肤色与自然光影。</p>
-        </div>
-        <div class="card">
-          <h4>一键分享</h4>
-          <p style="color:var(--muted)">内置快速传输，与手机 APP 无缝对接，拍完即可分享到社交平台。</p>
-        </div>
-        <div class="card">
-          <h4>轻巧便携</h4>
-          <p style="color:var(--muted)">优化的握持与外形设计，适合日常随身携带，不再需要牺牲画质。</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="gallery">
-      <h3 style="font-family:'Playfair Display',serif;margin-bottom:12px">场景展示</h3>
-      <div class="gallery">
-        <img src="https://i.pinimg.com/1200x/12/d0/61/12d06120663c7090ae12fa6e0eb1a2fd.jpg" alt="hero">
-        <img src="https://i.pinimg.com/736x/6a/cd/8a/6acd8a2fe69dc6869e82fec37fee7db3.jpg" alt="scene">
-        <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI1LTEwL3NyLWltYWdlLTEzMTAyMDI1LWFtMDYtcy0xNzg4LW1ncmYxZmFtLmpwZw.jpg" alt="sample">
-      </div>
-    </section>
-
-    <section class="section" id="preorder">
-      <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
-        <div style="flex:1;min-width:260px">
-          <h3 style="margin:0;font-family:'Playfair Display',serif">预约 • 早鸟</h3>
-          <p style="color:var(--muted)">留下邮箱，我们会在产品首发前通知并提供早鸟优惠名额。</p>
-        </div>
-        <form style="background:#fff;padding:16px;border-radius:12px;box-shadow:0 6px 20px rgba(20,10,10,0.04);min-width:320px" onsubmit="event.preventDefault();handlePreorder(this)">
-          <label style="font-size:13px;color:var(--muted)">邮箱</label>
-          <input name="email" type="email" required placeholder="you@example.com" style="width:100%;padding:10px;margin-top:8px;border-radius:10px;border:1px solid rgba(0,0,0,0.06)">
-          <div style="display:flex;gap:8px;margin-top:12px">
-            <button class="btn btn-primary" type="submit">预约抢先</button>
-            <button class="btn btn-ghost" type="button" onclick="alert('更多信息将会通过邮箱发送给您')">查看详情</button>
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <footer>
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
-        <div style="color:var(--muted)">© 2025 AI Camera</div>
-        <div style="color:var(--muted)">概念演示页面 • 请替换图片与文案用于发布</div>
-      </div>
-    </footer>
-  </div>
+  <footer style="padding:60px 8%;text-align:center;color:#777;font-size:14px;">
+    AI Camera ・ Aurora ・ Photo ・ Concept
+  </footer>
 
   <script>
-    function handlePreorder(form){
-      const email = form.email.value.trim();
-      if(!email) return alert('请输入邮箱');
-      alert('感谢你的预约，我们已记录：'+email+'（此为示例表单，需接入真实后端）');
-      form.reset();
-    }
+    // 滚动动画触发
+    const reveals = document.querySelectorAll('.reveal');
+    window.addEventListener('scroll', () => {
+      for (let el of reveals) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          el.classList.add('active');
+        }
+      }
+    });
   </script>
 </body>
 </html>

@@ -1,245 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Camera — 让美变得更简单</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    /* ===== 全局样式 ===== */
-    body {
-      font-family: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
-      margin: 0;
-      background: #fff;
-      color: #222;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 8%;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-    }
-    header h1 {
-      font-size: 20px;
-      font-weight: 600;
-      margin: 0;
-    }
-    nav a {
-      margin-left: 24px;
-      text-decoration: none;
-      color: #333;
-      font-size: 15px;
-      transition: 0.3s;
-    }
-    nav a:hover {
-      color: #ff6fa5;
-    }
-
-    /* ===== Hero 区 ===== */
-    .hero {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      padding: 60px 8%;
-      gap: 40px;
-    }
-    .hero-text {
-      flex: 1;
-      min-width: 300px;
-      max-width: 500px;
-      z-index: 2;
-    }
-    .hero-text h1 {
-      font-size: 40px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      line-height: 1.3;
-    }
-    .hero-text p {
-      font-size: 17px;
-      line-height: 1.7;
-      margin-bottom: 32px;
-      color: #555;
-    }
-    .hero-buttons a {
-      display: inline-block;
-      padding: 12px 26px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 500;
-      margin-right: 12px;
-      transition: all 0.3s ease;
-    }
-    .btn.primary {
-      background: #ff6fa5;
-      color: #fff;
-    }
-    .btn.primary:hover {
-      background: #ff528d;
-    }
-    .btn.secondary {
-      border: 1px solid #ff6fa5;
-      color: #ff6fa5;
-    }
-    .btn.secondary:hover {
-      background: #ff6fa5;
-      color: #fff;
-    }
-    .hero-img {
-      flex: 1;
-      min-width: 320px;
-      height: 420px;
-      background-image: url('assets/cover.jpg');
-      background-size: cover;
-      background-position: center;
-      border-radius: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-
-    /* ===== 动画部分 ===== */
-    .fade-in {
-      animation: fadeIn 1s ease-out forwards;
-      opacity: 0;
-    }
-    .slide-up {
-      animation: slideUp 1.2s ease-out forwards;
-      opacity: 0;
-    }
-    .zoom-in {
-      animation: zoomIn 1.4s ease-out forwards;
-      opacity: 0;
-    }
-    .fade-delay-1 { animation-delay: 0.3s; }
-    .fade-delay-2 { animation-delay: 0.6s; }
-    .fade-delay-3 { animation-delay: 0.9s; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes zoomIn {
-      from { opacity: 0; transform: scale(1.05); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    /* ===== 滚动动画 ===== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 1s ease;
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ===== Section 样式 ===== */
-    section {
-      padding: 80px 8%;
-    }
-    section h2 {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-    section p {
-      color: #666;
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    footer {
-      padding: 60px 8%;
-      text-align: center;
-      color: #777;
-      font-size: 14px;
-      border-top: 1px solid rgba(0,0,0,0.05);
-    }
-
-    /* ===== 响应式 ===== */
-    @media (max-width: 768px) {
-      .hero {
-        flex-direction: column-reverse;
-        text-align: center;
-        padding: 40px 6%;
-      }
-      .hero-img {
-        width: 100%;
-        height: 280px;
-        margin-bottom: 30px;
-      }
-      header {
-        flex-direction: column;
-      }
-      nav {
-        margin-top: 10px;
-      }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Camera - 智慧美感相机</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
   <header>
     <h1>AI Camera</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#features">Features</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#order" class="btn secondary" style="padding:6px 16px;">预订</a>
-    </nav>
+    <p>捕捉属于你的光影美学</p>
   </header>
 
-  <section class="hero fade-in">
-    <div class="hero-text slide-up">
-      <h1 class="fade-delay-1">AI Camera，让美变得更简单。</h1>
-      <p class="fade-delay-2">一台为年轻女性设计的轻便 M4/3 相机，结合 AI 智能色彩优化与一键分享，记录每一个闪光的瞬间。</p>
-      <div class="hero-buttons fade-delay-3">
-        <a href="#features" class="btn primary">了解更多</a>
-        <a href="#order" class="btn secondary">立即预订</a>
-      </div>
-      <p style="margin-top:20px;color:#777;font-size:14px;">首批预计发货：2026 Q1・限量早鸟</p>
-    </div>
-    <div class="hero-img zoom-in"></div>
+  <section class="hero">
+    <img src="assets/cover.jpg" alt="AI Camera">
   </section>
 
-  <section id="features" class="reveal" style="background:#fafafa;">
-    <h2>核心特性</h2>
-    <p>AI 智能美化、自动曝光优化、一键分享、轻便可换镜设计。</p>
-  </section>
-
-  <section id="gallery" class="reveal">
-    <h2>拍摄样张</h2>
-    <p>每一张都是光影的艺术。</p>
+  <section class="intro">
+    <h2>让自拍回归自然之美</h2>
+    <p>AI Camera 为年轻女性打造，融合高感光传感器与AI优化算法，轻盈机身与智能互联，为每一次自拍注入真实与灵动。</p>
   </section>
 
   <footer>
-    AI Camera ・ Aurora ・ Photo ・ Concept
+    <p>© 2025 AI Camera. All rights reserved.</p>
   </footer>
-
-  <script>
-    // 滚动动画触发
-    const reveals = document.querySelectorAll('.reveal');
-    window.addEventListener('scroll', () => {
-      for (let el of reveals) {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) {
-          el.classList.add('active');
-        }
-      }
-    });
-  </script>
 </body>
 </html>
